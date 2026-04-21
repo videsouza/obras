@@ -1,78 +1,60 @@
 document.addEventListener("DOMContentLoaded", function() {
-  const container = document.getElementById("poem-container");
-  const slides = Array.from(container.querySelectorAll(".poem-slide"));
-  const prevBtn = document.getElementById("prev-btn");
-  const nextBtn = document.getElementById("next-btn");
-  const collectionLinks = document.querySelectorAll(".collection-link");
-  
-  // Acompanha o índice do poema ativo na coleção ATUAL
-  let currentPoemIndex = 0;
-  // Acompanha qual coleção está sendo exibida (null para todas, ou nome da coleção)
-  let currentCollection = slides[0].dataset.collection; // Começa com a primeira coleção
+    const allSlides = Array.from(document.querySelectorAll(".poem-slide"));
+    const prevBtn = document.getElementById("prev-btn");
+    const nextBtn = document.getElementById("next-btn");
+    const links = document.querySelectorAll(".collection-link");
 
-  // Função para atualizar qual poema está visível
-  function showPoem(index) {
-    // Esconde todos os poemas
-    slides.forEach(slide => {
-      slide.classList.remove("active");
-    });
-    
-    // Mostra o poema correto
-    slides[index].classList.add("active");
-  }
+    let filteredSlides = [];
+    let currentIndex = 0;
 
-  // Função para avançar para o próximo poema
-  function nextPoem() {
-    // Avança o índice e faz o 'wrap-around' (volta para o primeiro se passar do último)
-    currentPoemIndex = (currentPoemIndex + 1) % slides.length;
-    showPoem(currentPoemIndex);
-  }
+    function updateGallery(collectionName) {
+        // 1. Filtra os slides que pertencem à coleção clicada
+        filteredSlides = allSlides.filter(slide => 
+            slide.getAttribute("data-collection") === collectionName
+        );
 
-  // Função para voltar para o poema anterior
-  function prevPoem() {
-    // Volta o índice e faz o 'wrap-around' (vai para o último se for menor que o primeiro)
-    currentPoemIndex = (currentPoemIndex - 1 + slides.length) % slides.length;
-    showPoem(currentPoemIndex);
-  }
+        // 2. Reseta o índice para o primeiro poema da nova lista
+        currentIndex = 0;
 
-  // Eventos dos botões de navegação
-  nextBtn.addEventListener("click", nextPoem);
-  prevBtn.addEventListener("click", prevPoem);
+        // 3. Esconde TODOS os slides do site
+        allSlides.forEach(s => s.classList.remove("active"));
 
-  // Inicializa: Mostra o primeiro poema da coleção inicial
-  showPoem(currentPoemIndex);
-  
-  // (Opcional) Teclas de seta para navegação
-  document.addEventListener("keydown", function(event) {
-    if (event.key === "ArrowRight") {
-      nextPoem();
-    } else if (event.key === "ArrowLeft") {
-      prevPoem();
+        // 4. Mostra o primeiro da coleção filtrada (se existir)
+        if (filteredSlides.length > 0) {
+            filteredSlides[currentIndex].classList.add("active");
+        }
+        
+        // Esconde as setas se a coleção só tiver um poema
+        prevBtn.style.display = nextBtn.style.display = filteredSlides.length > 1 ? "block" : "none";
     }
-  });
 
-  // (Opcional) Funcionalidade dos links da coleção no menu
-  collectionLinks.forEach(link => {
-      link.addEventListener("click", function(e) {
-          e.preventDefault(); // Impede o comportamento padrão do link
+    function showNext() {
+        filteredSlides[currentIndex].classList.remove("active");
+        currentIndex = (currentIndex + 1) % filteredSlides.length;
+        filteredSlides[currentIndex].classList.add("active");
+    }
 
-          const targetCollection = this.dataset.collection;
+    function showPrev() {
+        filteredSlides[currentIndex].classList.remove("active");
+        currentIndex = (currentIndex - 1 + filteredSlides.length) % filteredSlides.length;
+        filteredSlides[currentIndex].classList.add("active");
+    }
 
-          // Atualiza o estado do menu (muda o link ativo)
-          collectionLinks.forEach(l => l.classList.remove("active"));
-          this.classList.add("active");
+    // Eventos dos Menus
+    links.forEach(link => {
+        link.addEventListener("click", function(e) {
+            e.preventDefault();
+            links.forEach(l => l.classList.remove("active"));
+            this.classList.add("active");
+            updateGallery(this.getAttribute("data-collection"));
+        });
+    });
 
-          // Reseta a visualização: Mostra apenas poemas da coleção clicada
-          // (Para este exemplo simples, nós apenas mostramos o primeiro poema
-          // da coleção alvo. Você poderia adicionar um carrossel por coleção).
-          const collectionSlides = slides.filter(slide => slide.dataset.collection === targetCollection);
-          if (collectionSlides.length > 0) {
-              const firstSlideId = collectionSlides[0].id;
-              // Encontra o índice global para o primeiro poema da coleção
-              const globalIndex = slides.findIndex(slide => slide.id === firstSlideId);
-              currentPoemIndex = globalIndex;
-              showPoem(globalIndex);
-          }
-      });
-  });
+    // Eventos das Setas
+    nextBtn.addEventListener("click", showNext);
+    prevBtn.addEventListener("click", showPrev);
+
+    // Inicialização: Começa com a primeira coleção ativa (ex: Alhures)
+    const initialCollection = document.querySelector(".collection-link.active").getAttribute("data-collection");
+    updateGallery(initialCollection);
 });
