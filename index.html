@@ -3,59 +3,67 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Biblioteca de Poesias</title>
+    <title>Biblioteca Poética</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
     <header>
         <h1>Biblioteca Poética</h1>
         <nav>
-            <a href="#alhures" class="active">Alhures</a>
-            <a href="#forma-do-vazio">A forma do Vazio</a>
-            <a href="#esparsos">Poemas Esparsos</a>
+            <a href="#alhures" class="collection-link active" data-collection="alhures">Alhures</a>
+            <a href="#forma-do-vazio" class="collection-link" data-collection="forma-do-vazio">A forma do Vazio</a>
+            <a href="#esparsos" class="collection-link" data-collection="esparsos">Poemas Esparsos</a>
         </nav>
     </header>
 
-    <main class="horizontal-gallery">
+    <main class="poetry-viewer">
         
-        <article class="poem-card">
-            <div class="image-container">
-                <img src="imagem-1.jpg" alt="Ilustração para o primeiro poema">
-            </div>
-            <h2>O Tempo e o Traço</h2>
-            <p class="poem-text">
-                Onde o tempo não dita o compasso,
-                A palavra encontra seu repouso.
-                (Insira seus versos aqui, a quebra de linha será respeitada).
-            </p>
-        </article>
+        <button id="prev-btn" class="nav-btn" aria-label="Poema anterior">&#10094;</button>
+        <button id="next-btn" class="nav-btn" aria-label="Próximo poema">&#10095;</button>
 
-        <article class="poem-card">
-            <div class="image-container">
-                <img src="imagem-2.jpg" alt="Ilustração para o segundo poema">
-            </div>
-            <h2>Silêncio Exato</h2>
-            <p class="poem-text">
-                Um traço leve sobre a página,
-                o peso exato do que não se diz.
-            </p>
-        </article>
+        <div id="poem-container" class="poem-container">
+            
+            <article class="poem-slide active" data-collection="alhures" id="alhures-1">
+                <div class="image-container">
+                    <img src="imagem-1.jpg" alt="Ilustração para o primeiro poema">
+                </div>
+                <h2>O Tempo e o Traço</h2>
+                <p class="poem-text">
+                    Onde o tempo não dita o compasso,
+                    A palavra encontra seu repouso.
+                    (Insira seus versos aqui, a quebra de linha será respeitada).
+                </p>
+            </article>
 
-        <article class="poem-card">
-            <div class="image-container">
-                <img src="imagem-3.jpg" alt="Ilustração para o terceiro poema">
-            </div>
-            <h2>Ponto de Fuga</h2>
-            <p class="poem-text">
-                Na dobra do papel antigo,
-                o verso aguarda quem o leia.
-            </p>
-        </article>
+            <article class="poem-slide" data-collection="alhures" id="alhures-2">
+                <div class="image-container">
+                    <img src="imagem-2.jpg" alt="Ilustração para o segundo poema">
+                </div>
+                <h2>Silêncio Exato</h2>
+                <p class="poem-text">
+                    Um traço leve sobre a página,
+                    o peso exato do que não se diz.
+                </p>
+            </article>
 
+            <article class="poem-slide" data-collection="forma-do-vazio" id="forma-vazio-1">
+                <div class="image-container">
+                    <img src="imagem-3.jpg" alt="Ilustração para o terceiro poema">
+                </div>
+                <h2>Ponto de Fuga</h2>
+                <p class="poem-text">
+                    Na dobra do papel antigo,
+                    o verso aguarda quem o leia.
+                </p>
+            </article>
+
+        </div>
     </main>
 
     <footer>
         <p>&copy; 2026. Hospedado via GitHub Pages.</p>
     </footer>
+
+    <script src="script.js"></script>
 </body>
 </html>
