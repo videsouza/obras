@@ -6,7 +6,7 @@
     --card-width: 650px; /* Largura da mancha gráfica do poema */
 }
 
-/* Reset Básico e Tipografia corrigidos */
+/* Reset Básico e Tipografia corrigidos (Destravados) */
 body {
     font-family: 'Georgia', 'Times New Roman', serif;
     background-color: var(--bg-color);
@@ -16,8 +16,7 @@ body {
     padding: 0;
     display: flex;
     flex-direction: column;
-    /* Removido o height: 100vh e o overflow: hidden que travavam a tela */
-    min-height: 100vh; 
+    min-height: 100vh; /* Ocupa pelo menos a altura da tela */
 }
 
 /* Cabeçalho Fixo no Topo */
@@ -45,6 +44,7 @@ nav a {
     text-transform: uppercase;
     letter-spacing: 2px;
     transition: color 0.3s ease;
+    cursor: pointer; /* Indica que é clicável */
 }
 
 nav a:hover, nav a.active {
@@ -53,42 +53,38 @@ nav a:hover, nav a.active {
     padding-bottom: 2px;
 }
 
-/* A Mágica da Navegação Horizontal Destravada */
-.horizontal-gallery {
+/* Visualizador de Poesia de Único Painel */
+.poetry-viewer {
+    position: relative; /* Base para o posicionamento dos botões */
     display: flex;
-    flex-direction: row;
+    justify-content: center;
     align-items: flex-start;
-    overflow-x: auto; /* Mantém a rolagem horizontal */
-    overflow-y: visible; /* Permite rolar para baixo caso o poema seja longo */
-    scroll-snap-type: x mandatory; 
-    flex-grow: 1; 
+    flex-grow: 1; /* Preenche o resto da tela */
     padding-bottom: 4rem; /* Mais espaço no final */
-    
-    /* Centraliza o primeiro e último item na tela */
-    padding-left: calc(50vw - (var(--card-width) / 2));
-    padding-right: calc(50vw - (var(--card-width) / 2));
-    
-    /* Ocultar barra de rolagem horizontal para um visual mais limpo */
-    scrollbar-width: none; /* Firefox */
+    width: 100%;
+    overflow-x: hidden; /* Garante que não apareça barra horizontal */
 }
 
-.horizontal-gallery::-webkit-scrollbar {
-    display: none; /* Chrome/Safari */
+.poem-container {
+    display: block; /* Poemas serão controlados por JS */
+    width: 100%;
+    max-width: var(--card-width);
+    padding: 0 1.5rem;
+    box-sizing: border-box;
 }
 
-/* O Cartão do Poema */
-.poem-card {
-    flex: 0 0 var(--card-width); /* Mantém a largura fixa */
-    scroll-snap-align: center; /* Ponto de ancoragem na rolagem */
-    margin-right: 6rem; /* Espaço entre um poema e outro */
-    display: flex;
+/* O Cartão do Poema (Invisível por padrão) */
+.poem-slide {
+    display: none; /* Esconde todos os poemas */
     flex-direction: column;
     align-items: center;
     text-align: center;
+    width: 100%;
 }
 
-.poem-card:last-child {
-    margin-right: 0;
+/* Mostra apenas o poema ativo */
+.poem-slide.active {
+    display: flex; /* Torna o poema visível */
 }
 
 /* Imagens Padronizadas */
@@ -110,7 +106,7 @@ nav a:hover, nav a.active {
 }
 
 /* Estilo do Texto */
-.poem-card h2 {
+.poem-card h2, .poem-slide h2 {
     font-size: 1.8rem;
     font-weight: normal;
     font-style: italic; 
@@ -125,6 +121,34 @@ nav a:hover, nav a.active {
     max-width: 90%;
 }
 
+/* Botões de Navegação Minimalistas */
+.nav-btn {
+    position: fixed;
+    top: 50%;
+    transform: translateY(-50%);
+    background: transparent;
+    border: none;
+    color: var(--accent-color);
+    font-size: 3rem;
+    cursor: pointer;
+    z-index: 100;
+    transition: color 0.3s ease, transform 0.3s ease;
+    opacity: 0.6; /* Sutil por padrão */
+}
+
+.nav-btn:hover {
+    color: var(--text-color);
+    opacity: 1;
+}
+
+#prev-btn {
+    left: 2rem;
+}
+
+#next-btn {
+    right: 2rem;
+}
+
 /* Rodapé Fixo na Base */
 footer {
     text-align: center;
@@ -133,4 +157,22 @@ footer {
     width: 100%;
     padding: 1rem 0;
     flex-shrink: 0;
+}
+
+/* Ajustes Responsivos para Telas Menores */
+@media (max-width: 768px) {
+    --card-width: 90%;
+    .nav-btn {
+        font-size: 2.2rem;
+    }
+    #prev-btn {
+        left: 0.5rem;
+    }
+    #next-btn {
+        right: 0.5rem;
+    }
+    nav a {
+        margin: 0 0.5rem;
+        font-size: 0.75rem;
+    }
 }
