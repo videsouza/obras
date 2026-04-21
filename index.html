@@ -1,47 +1,48 @@
 <!DOCTYPE html>
-<html lang="pt-br">
+<html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Vinícius de Souza | Portfólio</title>
-    <style>
-        body { background: #0f172a; color: #f8fafc; font-family: 'Inter', sans-serif; margin: 0; }
-        .nav { padding: 1.5rem; text-align: center; border-bottom: 1px solid #1e293b; }
-        .hero { text-align: center; padding: 4rem 1rem; background: linear-gradient(to bottom, #1e293b, #0f172a); }
-        .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 1.5rem; padding: 2rem; max-width: 1200px; margin: 0 auto; }
-        .card { background: #1e293b; padding: 1.5rem; border-radius: 12px; border: 1px solid #334155; transition: 0.3s; }
-        .card:hover { transform: translateY(-5px); border-color: #38bdf8; }
-        .tag { background: #0ea5e9; font-size: 0.75rem; padding: 0.2rem 0.6rem; border-radius: 20px; }
-        h3 { margin: 0.5rem 0; color: #38bdf8; }
-    </style>
+    <title>Catálogo de Obras</title>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <section class="hero">
-        <h1>Vinícius de Souza</h1>
-        <p>Arquivista, Escritor e Desenvolvedor em São José dos Campos</p>
-    </section>
+    <header>
+        <h1>Portfólio & Escritos</h1>
+        <nav>
+            <a href="#poesia" class="active">Poesia</a>
+            <a href="#logica">Lógica e Matemática</a>
+            <a href="#gestao">Gestão Documental</a>
+        </nav>
+    </header>
 
-    <div class="grid">
-        <div class="card">
-            <span class="tag">Livro</span>
-            <h3>Manual Técnico de Amostragem</h3>
-            <p>Guia técnico focado em arquivologia e estatística aplicada.</p>
-        </div>
-        <div class="card">
-            <span class="tag">Literatura</span>
-            <h3>A Vida na Secretaria Escolar</h3>
-            <p>Manual prático sobre organização e ética no setor público municipal.</p>
-        </div>
-        <div class="card">
-            <span class="tag">Poesia</span>
-            <h3>A Vanda Amarela</h3>
-            <p>Estudos poéticos sobre forma, métrica e o cotidiano.</p>
-        </div>
-        <div class="card">
-            <span class="tag">Teoria</span>
-            <h3>Computabilidade</h3>
-            <p>Explorações matemáticas sobre Turing, Gödel e a lógica formal.</p>
-        </div>
-    </div>
+    <main id="poesia">
+        <article class="poem-card">
+            <div class="image-container">
+                <img src="sua-imagem-1.jpg" alt="Ilustração para Alhures">
+            </div>
+            <h2>Alhures</h2>
+            <p class="poem-text">
+                Onde o tempo não dita o compasso,
+                A palavra encontra seu repouso.
+                (Insira seus versos aqui, a quebra de linha será respeitada).
+            </p>
+        </article>
+
+        <article class="poem-card">
+            <div class="image-container">
+                <img src="sua-imagem-2.jpg" alt="Ilustração para A forma do Vazio">
+            </div>
+            <h2>A forma do Vazio</h2>
+            <p class="poem-text">
+                Um traço leve sobre a página,
+                o peso exato do que não se diz.
+            </p>
+        </article>
+    </main>
+
+    <footer>
+        <p>&copy; 2026. Hospedado via GitHub Pages.</p>
+    </footer>
 </body>
 </html>
