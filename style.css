@@ -6,7 +6,7 @@
     --card-width: 650px; /* Largura da mancha gráfica do poema */
 }
 
-/* Reset Básico e Tipografia */
+/* Reset Básico e Tipografia corrigidos */
 body {
     font-family: 'Georgia', 'Times New Roman', serif;
     background-color: var(--bg-color);
@@ -16,8 +16,8 @@ body {
     padding: 0;
     display: flex;
     flex-direction: column;
-    height: 100vh; /* Ocupa 100% da altura da tela */
-    overflow: hidden; /* Impede a rolagem vertical da página inteira */
+    /* Removido o height: 100vh e o overflow: hidden que travavam a tela */
+    min-height: 100vh; 
 }
 
 /* Cabeçalho Fixo no Topo */
@@ -53,22 +53,22 @@ nav a:hover, nav a.active {
     padding-bottom: 2px;
 }
 
-/* A Mágica da Navegação Horizontal */
+/* A Mágica da Navegação Horizontal Destravada */
 .horizontal-gallery {
     display: flex;
     flex-direction: row;
     align-items: flex-start;
-    overflow-x: auto; /* Habilita rolagem horizontal */
-    overflow-y: hidden;
-    scroll-snap-type: x mandatory; /* Faz o poema 'encaixar' no centro */
-    flex-grow: 1; /* Preenche o resto da tela */
-    padding-bottom: 2rem;
+    overflow-x: auto; /* Mantém a rolagem horizontal */
+    overflow-y: visible; /* Permite rolar para baixo caso o poema seja longo */
+    scroll-snap-type: x mandatory; 
+    flex-grow: 1; 
+    padding-bottom: 4rem; /* Mais espaço no final */
     
     /* Centraliza o primeiro e último item na tela */
     padding-left: calc(50vw - (var(--card-width) / 2));
     padding-right: calc(50vw - (var(--card-width) / 2));
     
-    /* Ocultar barra de rolagem para um visual mais limpo */
+    /* Ocultar barra de rolagem horizontal para um visual mais limpo */
     scrollbar-width: none; /* Firefox */
 }
 
